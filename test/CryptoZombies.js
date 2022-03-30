@@ -19,6 +19,12 @@ contract("CryptoZombies", (accounts) => {
         // Chapter 4: create instance of contract 
         const contractInstance = await CryptoZombies.new();
         // CryptoZombies.new() talks to the blockchain, asynchronous 
-        // function so we need to add await keyword  
+        // function so we need to add await keyword 
+        // Chapter 5: declare const result to create zombie
+        const result =  await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
+        // once we have result, call assert assuming test passed if true 
+        assert.equal(result.receipt.status, true);
+        // check if logs name equals to zombie name 
+        assert.equal(result.logs[0].args.name, zombieNames[0]);
     })
 })
