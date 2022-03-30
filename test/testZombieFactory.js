@@ -13,15 +13,22 @@ contract("ZombieFactory", (accounts) => {
     
     let [alice, bob] = accounts;
     // Chapter 6: add a hook to avoid repetitions 
-    
+    let contractInstance;
+    beforeEach(async () => {
+        contractInstance = await ZombieFactory.new();
+    });
+
+    afterEach(async () => {
+        await contractInstance.kill();
+    });
 
     // b. properly initialise the it function the second 
     // parameter callback will talk to blockchain which 
     // means the function is asynchronous 
     // async: everytime fct gets calle with wait, test wait for return
     it("should be able to create a new zombie", async () => { 
-        // Chapter 4: create instance of contract 
-        const contractInstance = await ZombieFactory.new();
+        // Chapter 4: create instance of contract (removed into beforeach) 
+        //const contractInstance = await ZombieFactory.new();
         // CryptoZombies.new() talks to the blockchain, asynchronous 
         // function so we need to add await keyword 
         // Chapter 5: declare const result to create zombie
@@ -30,5 +37,9 @@ contract("ZombieFactory", (accounts) => {
         assert.equal(result.receipt.status, true);
         // check if logs name equals to zombie name 
         assert.equal(result.logs[0].args.name, zombieNames[0]);
+    })
+    // define new it() function 
+    it("should not allow two zombies", async () => {
+
     })
 })
