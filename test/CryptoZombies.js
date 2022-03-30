@@ -4,7 +4,7 @@
 // test as an argument 
 
 const CryptoZombies = artifacts.require("CryptoZombies");
-
+const zombieNames = ["Zombie 1", "Zombie 2"];
 // 2. Write a test for the contract 
 // 3. it() is executing test text 
 contract("CryptoZombies", (accounts) => {
@@ -15,6 +15,10 @@ contract("CryptoZombies", (accounts) => {
     // parameter callback will talk to blockchain which 
     // means the function is asynchronous 
     // async: everytime fct gets calle with wait, test wait for return
-    it("should be able to create a new zombie", async () => {     
+    it("should be able to create a new zombie", async () => { 
+        // Chapter 4: create instance of contract 
+        const contractInstance = await CryptoZombies.new();
+        // CryptoZombies.new() talks to the blockchain, asynchronous 
+        // function so we need to add await keyword  
     })
 })
