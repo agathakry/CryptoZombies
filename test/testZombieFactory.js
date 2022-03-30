@@ -4,6 +4,8 @@
 // test as an argument 
 
 const ZombieFactory = artifacts.require("./zombiefactory.sol");
+// for not throwing errors
+const utils = require("./helpers/utils");
 const zombieNames = ["Zombie 1", "Zombie 2"];
 // 2. Write a test for the contract 
 // 3. it() is executing test text 
@@ -40,6 +42,10 @@ contract("ZombieFactory", (accounts) => {
     })
     // define new it() function 
     it("should not allow two zombies", async () => {
+        // alice create first zombie 
+        await contractInstance.createRandomZombie(zombieNames[0],{from: alice});
+        // shouldthrow function to test if error, this is wrong in purpose
+        await utils.shouldThrow(contractInstance.createRandomZombie(zombieNames[1], {from: alice}))
 
     })
 })
