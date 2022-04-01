@@ -19,10 +19,10 @@ contract("ZombieFactory", (accounts) => {
     beforeEach(async () => {
         contractInstance = await ZombieFactory.new();
     });
-
-    afterEach(async () => {
-        await contractInstance.kill();
-    });
+    //delete contract when not needed
+    //afterEach(async () => {
+    //    await contractInstance.kill();
+    //});
 
     // b. properly initialise the it function the second 
     // parameter callback will talk to blockchain which 
