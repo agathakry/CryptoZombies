@@ -48,4 +48,34 @@ contract("ZombieFactory", (accounts) => {
         await utils.shouldThrow(contractInstance.createRandomZombie(zombieNames[1], {from: alice}))
 
     })
+// Chapter 8: context function and doing multiple tests, with "x" we skip the test 
+    context("with the single-step transfer scenario", async () => {
+        it("should transfer a zombie", async () => {
+        // TODO: Test the single-step transfer scenario.
+
+        // Chapter 9: multiple test 
+        // A. create zombie and make sure its alice 
+        const result = await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
+        // B. declare zombieId and set it equal to zombie id 
+        const zombieId = result.logs[0].args.zombieId.toNumber();
+        // C. transfer from alice and bob 
+        await contractInstance.transferFrom(alice, bob, zombieId, {from: alice});
+        // D. declare newowner and set equal ownerOf with zombieId
+        const newOwner = await contractInstance.ownerOf(zombieId);
+        // E. Check whether Bob owns the ERC271 token 
+        assert.equal(newOwner, bob);
+        })
+    })
+
+    xcontext("with the two-step transfer scenario", async () => {
+        it("should approve and then transfer a zombie when the approved address calls transferFrom", async () => {
+        // TODO: Test the two-step scenario.  The approved address calls transferFrom
+
+
+        })
+        it("should approve and then transfer a zombie when the owner calls transferFrom", async () => {
+            // TODO: Test the two-step scenario.  The owner calls transferFrom
+        })
+    })
+
 })
