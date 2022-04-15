@@ -1,13 +1,12 @@
 # CryptoZombies Implementation 
+
+<p align="center">
+<img src=https://github.com/agathakry/CryptoZombies/blob/main/assets/Screenshot%202022-04-15%20at%2020.26.12.png width="40%">
+</p>
+
 Implementation of the popular [Crypto Zombies Tutorial](https://cryptozombies.io/) Series including testing using [Truffle](https://trufflesuite.com/) and [Ganache](https://trufflesuite.com/ganache/) for deploying on testnet. 
 
 The goal is to build the "Crypto Zombies" game, where a user can create a random zombie, fight against other zombies and win levels. 
-
-
-<p align="center">
-<img src=https://github.com/agathakry/CryptoZombies/blob/main/assets/Screenshot%202022-04-15%20at%2020.26.12.png width="20%">
-</p>
-
 
 ## Requirements 
 ```
