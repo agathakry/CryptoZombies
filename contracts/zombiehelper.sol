@@ -17,6 +17,11 @@ contract ZombieHelper is ZombieFeeding {
     _owner.transfer(address(this).balance);
   }
 
+  //added from Lesson 11 chapter 6
+  function kill() public onlyOwner {
+   selfdestruct(owner());
+}
+
   function setLevelUpFee(uint _fee) external onlyOwner {
     levelUpFee = _fee;
   }

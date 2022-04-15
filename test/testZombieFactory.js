@@ -6,8 +6,9 @@
 const ZombieFactory = artifacts.require("./zombiefactory.sol");
 // for not throwing errors
 const utils = require("./helpers/utils");
-const utils = require("./helpers/time");
+const time = require("./helpers/time");
 const zombieNames = ["Zombie 1", "Zombie 2"];
+var expect = require('chai').expect;
 // 2. Write a test for the contract 
 // 3. it() is executing test text 
 contract("ZombieFactory", (accounts) => {
@@ -40,6 +41,10 @@ contract("ZombieFactory", (accounts) => {
         assert.equal(result.receipt.status, true);
         // check if logs name equals to zombie name 
         assert.equal(result.logs[0].args.name, zombieNames[0]);
+
+        // Chapter 13: using CHAI insertion library 
+        expect(result.receipt.status).to.equal(true);
+        expect(result.logs[0].args.name).to.equal(zombieNames[0]);
     })
     // define new it() function 
     it("should not allow two zombies", async () => {
@@ -50,7 +55,7 @@ contract("ZombieFactory", (accounts) => {
 
     })
 // Chapter 8: context function and doing multiple tests, with "x" we skip the test 
-    context("with the single-step transfer scenario", async () => {
+    xcontext("with the single-step transfer scenario", async () => {
         it("should transfer a zombie", async () => {
         // TODO: Test the single-step transfer scenario.
 
@@ -65,6 +70,9 @@ contract("ZombieFactory", (accounts) => {
         const newOwner = await contractInstance.ownerOf(zombieId);
         // E. Check whether Bob owns the ERC271 token 
         assert.equal(newOwner, bob);
+
+        //Chapter 13: CHAI
+        expect(newOwner).to.equal(bob);
         })
     })
 
@@ -82,6 +90,7 @@ contract("ZombieFactory", (accounts) => {
         await contractInstance.transferFrom(alice, bob, zombieId, {from: bob});
         const newOwner = await contractInstance.ownerOf(zombieId);
         assert.equal(newOwner, bob);
+        expect(newOwner).to.equal(bob);
         // 
 
 
@@ -95,10 +104,11 @@ contract("ZombieFactory", (accounts) => {
         await contractInstance.transferFrom(alice, bob, zombieId, {from: alice});
         const newOwner = await contractInstance.ownerOf(zombieId);
         assert.equal(newOwner,bob);
+        expect(newOwner).to.equal(bob);
         })
     })
     // Chapter 12: Time travel and zombie attack
-    it("zombies should be able to attack another zombie", async () => {
+    xit("zombies should be able to attack another zombie", async () => {
         let result;
         result = await contractInstance.createRandomZombie(zombieNames[0], {from: alice});
         const firstZombieId = result.logs[0].args.zombieId.toNumber();
@@ -108,6 +118,7 @@ contract("ZombieFactory", (accounts) => {
         await time.increase(time.duration.days(1))
         await contractInstance.attack(firstZombieId, secondZombieId, {from: alice});
         assert.equal(result.receipt.status, true);
+        expect(result.receipt.status).to.equal(true);
     })
 
 })
